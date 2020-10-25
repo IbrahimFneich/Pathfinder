@@ -1,0 +1,16 @@
+<button (click)="test()" >Click Me</button>
+
+
+<div class="grid">
+    <div  *ngFor="let row of matrix ; index as i">
+        <div class="row" *ngFor="let col of row ; index as j">
+            
+            <app-node [i]="i" [j]="j" ></app-node>
+        </div>
+    </div>
+</div>
+
+
+
+
+

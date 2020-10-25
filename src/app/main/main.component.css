@@ -1,0 +1,9 @@
+.grid {
+    margin: 100px 0 0;
+    display: grid;
+  }
+
+.row{
+  display: grid;
+  float: left;
+}
