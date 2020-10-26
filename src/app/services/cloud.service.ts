@@ -12,6 +12,7 @@ export class CloudService {
 
   static index:number = 1;
   static visitedPath:INode[]=null;
+  static clicked:boolean=false;
   constructor() { 
 
   }
@@ -25,13 +26,13 @@ export class CloudService {
 
           
     const matrix = [];
-    for (let row = 0; row < 15; row++) {
+    for (let row = 0; row < 25; row++) {
       const currentRow = [];
-      for (let col = 0; col < 50; col++) {
-        if(row==8 && col == 8){
+      for (let col = 0; col < 70; col++) {
+        if(row==13 && col == 15){
           const startNode:INode={
-            row:8,
-            col:8,
+            row:13,
+            col:15,
             distance:0,
             isStart:true,
             isFinish:false,
@@ -43,11 +44,11 @@ export class CloudService {
 
           currentRow.push(startNode);
         }
-        else if(row==8 && col == 42){
+        else if(row==13 && col == 55){
 
           const finishNode:INode={
-            row:8,
-            col:42,
+            row:13,
+            col:55,
             distance:Number.MAX_VALUE,
             isStart:false,
             isFinish:true,

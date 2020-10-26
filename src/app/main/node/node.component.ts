@@ -17,6 +17,7 @@ export class NodeComponent implements OnInit ,OnChanges{
   @Input() j:number;
   @Input() animatePath:boolean;
 
+  
 
   constructor(private cloudService:CloudService) { 
 
@@ -44,34 +45,7 @@ export class NodeComponent implements OnInit ,OnChanges{
 
   ngOnChanges(changes: SimpleChanges): void {
 
-    if(this.animatePath){
-      //console.log(CloudService.visitedPath[0]);
-      
 
-
-
-          if(this.matrix[this.i][this.j].isVisited && !(this.matrix[this.i][this.j].isStart || this.matrix[this.i][this.j].isFinish) ){
-            //console.log("HERE");
-            
-            setTimeout(() => {
-              this.nodeClass="node node-visited";
-            }, 10 * CloudService.index++);
-    
-      
-          }
-    
-          if(this.matrix[this.i][this.j].isPath && !(this.matrix[this.i][this.j].isStart || this.matrix[this.i][this.j].isFinish) ){
-            setTimeout(() => {
-              this.nodeClass="node node-path";
-            }, 10 * CloudService.index++);
-          }
-
-        
-
-
-
-
-    }
     
 
   }
@@ -82,18 +56,96 @@ export class NodeComponent implements OnInit ,OnChanges{
       //console.log('('+this.i+','+this.j+')');
       console.log(this.matrix[this.i][this.j]);
       
+
+
   }
 
 
   child(row:number,col:number){
-    if(this.i == row && this.j == col){
-      console.log(row+','+col);
-      this.nodeClass="node node-visited";
+    var isStartOrFinish = (this.matrix[row][col].isStart || this.matrix[row][col].isFinish);
+    if(this.i == row && this.j == col && !isStartOrFinish){
+      //console.log(row+','+col);
+      setTimeout(() => {
+        this.nodeClass="node node-visited";
+      }, 5 * CloudService.index++);
     }
 
     
   }
 
+  path(row:number,col:number){
+    var isStartOrFinish = (this.matrix[row][col].isStart || this.matrix[row][col].isFinish);
 
+    if(this.i == row && this.j == col && this.matrix[this.i][this.j].isPath && !isStartOrFinish ){
+      setTimeout(() => {
+        this.nodeClass="node node-path";
+      }, 5 * CloudService.index++);
+    }
+
+  }
+
+  isDown:boolean=false;
+
+
+
+
+  mouseDown(){
+    console.log("down");
+    
+    var isStartOrFinish = (this.matrix[this.i][this.j].isStart || this.matrix[this.i][this.j].isFinish);
+    var isWall = this.matrix[this.i][this.j].isWall;
+
+    CloudService.clicked=true;
+    
+    if(!isStartOrFinish){
+        if(isWall){
+          this.matrix[this.i][this.j].isWall=false;
+          this.cloudService.updateMatrix(this.matrix);
+          this.nodeClass="node ";
+        }
+        else{
+          this.matrix[this.i][this.j].isWall=true;
+          this.cloudService.updateMatrix(this.matrix);
+          this.nodeClass="node node-wall";
+        }
+        
+      }
+
+  }
+
+  mouseOver(){
+    console.log("over : "+CloudService.clicked);
+    var isStartOrFinish = (this.matrix[this.i][this.j].isStart || this.matrix[this.i][this.j].isFinish);
+    var isWall = this.matrix[this.i][this.j].isWall;
+    if(CloudService.clicked){
+      if(!isStartOrFinish){
+        if(isWall){
+          this.matrix[this.i][this.j].isWall=false;
+          this.cloudService.updateMatrix(this.matrix);
+          this.nodeClass="node ";
+        }
+        else{
+          this.matrix[this.i][this.j].isWall=true;
+          this.cloudService.updateMatrix(this.matrix);
+          this.nodeClass="node node-wall";
+        }
+        
+      }
+    }
+  }
+
+  mouseUp(){
+      console.log("up");
+      var isStartOrFinish = (this.matrix[this.i][this.j].isStart || this.matrix[this.i][this.j].isFinish);
+      
+      if(!isStartOrFinish){
+        this.matrix[this.i][this.j].isWall=true;
+        this.cloudService.updateMatrix(this.matrix);
+        this.nodeClass="node node-wall";
+      }
+      
+      CloudService.clicked=false;
+    
+  }
 
 }

@@ -1,6 +1,8 @@
 // Performs Dijkstra's algorithm; returns *all* nodes in the order
 // in which they were visited. Also makes nodes point back to their
 // previous node, effectively allowing us to compute the shortest path
+
+
 // by backtracking from the finish node.
 export function dijkstra(grid, startNode, finishNode) {
   const visitedNodesInOrder = [];
@@ -13,7 +15,7 @@ export function dijkstra(grid, startNode, finishNode) {
     if (closestNode.isWall) continue;
     // If the closest node is at a distance of infinity,
     // we must be trapped and should therefore stop.
-    if (closestNode.distance === Infinity) return visitedNodesInOrder;
+    if (closestNode.distance === Number.MAX_VALUE) return visitedNodesInOrder;
     closestNode.isVisited = true;
     visitedNodesInOrder.push(closestNode);
     if (closestNode === finishNode) return visitedNodesInOrder;
@@ -58,7 +60,7 @@ function getAllNodes(grid) {
 export function getNodesInShortestPathOrder(finishNode) {
   const nodesInShortestPathOrder = [];
   let currentNode = finishNode;
-  while (currentNode !== null) {
+  while (currentNode !== null ) {
     currentNode.isPath = true;
     nodesInShortestPathOrder.unshift(currentNode);
     currentNode = currentNode.previousNode;
