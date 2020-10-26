@@ -1,7 +1,29 @@
-<button (click)="Dijkstra()" id="dijkstra" >Dijkstra</button>
-<button (click)="random()" id="random" >Random</button>
-<button (click)="reset()" id="reset" >Reset</button>
-<button (click)="clearWalls()" id="clearWalls" >Clear Walls</button>
+<mat-toolbar>
+
+    <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
+      <mat-icon>menu</mat-icon>
+    </button>
+    <span>Pathfinder</span>
+
+    <span class="example-spacer"></span>
+    <button mat-button color="primary" (click)="Dijkstra()" id="dijkstra" >Dijkstra</button>
+    <button mat-button color="primary" (click)="random()" id="random" >Random</button>
+    <button mat-button color="primary" (click)="reset()" id="reset" >Reset</button>
+    <button mat-button color="primary" (click)="clearWalls()" id="clearWalls" >Clear Walls</button>
+    <button mat-icon-button class="example-icon favorite-icon" aria-label="Example icon-button with heart icon">
+      <mat-icon>favorite</mat-icon>
+    </button>
+
+    <button mat-icon-button class="example-icon" aria-label="Example icon-button with share icon">
+      <mat-icon>share</mat-icon>
+    </button>
+
+  </mat-toolbar>
+
+
+<br>
+
+
 
 
 <div class="grid">

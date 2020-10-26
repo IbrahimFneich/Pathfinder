@@ -21,8 +21,8 @@ export class MainComponent implements OnInit {
 
   ngOnInit(): void {
     this.cloudService.currentMatrix.subscribe(matrix=> this.matrix = matrix);
-    this.startNode= this.matrix[13][15];
-    this.finishNode = this.matrix[13][55];
+    this.startNode= this.matrix[CloudService.startRow][CloudService.startCol];
+    this.finishNode = this.matrix[CloudService.finishRow][CloudService.finishCol];
   }
 
   matrix:INode[][];
@@ -37,9 +37,14 @@ export class MainComponent implements OnInit {
     document.getElementById("reset").setAttribute('disabled','disabled');
     document.getElementById("clearWalls").setAttribute('disabled','disabled');
 
-    this.startNode= this.matrix[13][15];
-    this.finishNode = this.matrix[13][55];
+
+    
+    
+
+    this.startNode= this.matrix[CloudService.startRow][CloudService.startCol];
+    this.finishNode = this.matrix[CloudService.finishRow][CloudService.finishCol];
     var dij= dijkstra(this.matrix,this.startNode,this.finishNode);
+
 
     //console.log("DIJ : "+dij);
     
@@ -73,7 +78,6 @@ export class MainComponent implements OnInit {
     }
 
     setTimeout(() => {
-      document.getElementById("dijkstra").removeAttribute('disabled');
       document.getElementById("random").removeAttribute('disabled');
       document.getElementById("reset").removeAttribute('disabled');
       document.getElementById("clearWalls").removeAttribute('disabled');
@@ -86,6 +90,9 @@ export class MainComponent implements OnInit {
     this.matrix = this.cloudService.InitializeMatrix();
     this.cloudService.updateMatrix(this.matrix);
     CloudService.index=1;
+    
+    document.getElementById("dijkstra").removeAttribute('disabled');
+    
   }
 
   clearWalls(){
@@ -108,8 +115,8 @@ export class MainComponent implements OnInit {
 
   random(){
 
-    this.startNode= this.matrix[13][15];
-    this.finishNode = this.matrix[13][55];
+    this.startNode= this.matrix[CloudService.startRow][CloudService.startCol];
+    this.finishNode = this.matrix[CloudService.finishRow][CloudService.finishCol];
     
     //if(!this.isDijkstraDone){
     //  var dij = dij= dijkstra(this.matrix,this.startNode,this.finishNode);
