@@ -13,6 +13,7 @@ export class CloudService {
   static index:number = 1;
   static visitedPath:INode[]=null;
   static clicked:boolean=false;
+  static isDone:boolean=false;
   constructor() { 
 
   }

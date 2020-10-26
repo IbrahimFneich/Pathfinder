@@ -10,7 +10,7 @@ import { INode } from 'src/app/services/INode';
 export class NodeComponent implements OnInit ,OnChanges{
 
   nodeClass:string='node';
-
+  TIME:number=1;
   matrix:INode[][];
 
   @Input() i:number;
@@ -67,7 +67,7 @@ export class NodeComponent implements OnInit ,OnChanges{
       //console.log(row+','+col);
       setTimeout(() => {
         this.nodeClass="node node-visited";
-      }, 5 * CloudService.index++);
+      }, this.TIME * CloudService.index++);
     }
 
     
@@ -79,7 +79,39 @@ export class NodeComponent implements OnInit ,OnChanges{
     if(this.i == row && this.j == col && this.matrix[this.i][this.j].isPath && !isStartOrFinish ){
       setTimeout(() => {
         this.nodeClass="node node-path";
-      }, 5 * CloudService.index++);
+      }, this.TIME * CloudService.index++);
+       
+    }
+    if(this.matrix[row][col].isFinish){
+      setTimeout(() => {
+        CloudService.isDone=true;
+        console.log("GERER");
+        
+      }, this.TIME * CloudService.index++);
+      
+    } 
+    
+
+  }
+
+  walls(row:number,col:number){
+    var isStartOrFinish = (this.matrix[row][col].isStart || this.matrix[row][col].isFinish);
+
+    if(this.i == row && this.j == col && this.matrix[this.i][this.j].isWall && !isStartOrFinish ){
+      setTimeout(() => {
+        this.nodeClass="node node-wall";
+      }, this.TIME * CloudService.index++);
+    }
+
+  }
+
+  clearWalls(row:number,col:number){
+    var isStartOrFinish = (this.matrix[row][col].isStart || this.matrix[row][col].isFinish);
+
+    if(this.i == row && this.j == col && this.matrix[this.i][this.j].isWall && !isStartOrFinish ){
+      setTimeout(() => {
+        this.nodeClass="node";
+      }, 0.5 * CloudService.index++);
     }
 
   }
