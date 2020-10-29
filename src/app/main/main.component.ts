@@ -4,6 +4,7 @@ import { basicRandom } from '../services/basicRandom';
 import { CloudService } from '../services/cloud.service'
 import { dijkstra, getNodesInShortestPathOrder } from '../services/dijkstra';
 import { INode } from '../services/INode';
+import { wallsRandom } from '../services/wallsRandom';
 import { NodeComponent } from './node/node.component';
 @Component({
   selector: 'app-main',
@@ -33,7 +34,7 @@ export class MainComponent implements OnInit {
 
   Dijkstra(){
     document.getElementById("dijkstra").setAttribute('disabled','disabled');
-    document.getElementById("random").setAttribute('disabled','disabled');
+    document.getElementById("basicRandom").setAttribute('disabled','disabled');
     document.getElementById("reset").setAttribute('disabled','disabled');
     document.getElementById("clearWalls").setAttribute('disabled','disabled');
 
@@ -78,7 +79,7 @@ export class MainComponent implements OnInit {
     }
 
     setTimeout(() => {
-      document.getElementById("random").removeAttribute('disabled');
+      document.getElementById("basicRandom").removeAttribute('disabled');
       document.getElementById("reset").removeAttribute('disabled');
       document.getElementById("clearWalls").removeAttribute('disabled');
     },1.1 * CloudService.index);
@@ -86,13 +87,15 @@ export class MainComponent implements OnInit {
   }
 
   reset(){
-    this.animatePath=false;
-    this.matrix = this.cloudService.InitializeMatrix();
-    this.cloudService.updateMatrix(this.matrix);
-    CloudService.index=1;
+    //this.animatePath=false;
+    //this.matrix = this.cloudService.InitializeMatrix();
+    //this.cloudService.updateMatrix(this.matrix);
+    //CloudService.index=1;
     
-    document.getElementById("dijkstra").removeAttribute('disabled');
+    //document.getElementById("dijkstra").removeAttribute('disabled');
     
+    location.reload();
+
   }
 
   clearWalls(){
@@ -113,7 +116,7 @@ export class MainComponent implements OnInit {
 
 
 
-  random(){
+  basicRandom(){
 
     this.startNode= this.matrix[CloudService.startRow][CloudService.startCol];
     this.finishNode = this.matrix[CloudService.finishRow][CloudService.finishCol];
@@ -154,6 +157,30 @@ export class MainComponent implements OnInit {
 
     
     //var dij= dijkstra(this.matrix,this.startNode,this.finishNode);
+  }
+
+  wallsRandom(){
+    this.startNode= this.matrix[CloudService.startRow][CloudService.startCol];
+    this.finishNode = this.matrix[CloudService.finishRow][CloudService.finishCol];
+
+
+    var walls = wallsRandom(this.matrix,this.startNode,this.finishNode);
+
+    for (let index = 0; index < walls.length; index++) {
+      this.matrix[walls[index].row][walls[index].col]=walls[index];
+      
+    }
+    this.cloudService.updateMatrix(this.matrix);
+    
+
+    //visualize walls
+    
+    for (let i = 0; i < walls.length; i++) {
+      var child = this.children.find((element,index)=>element.i==walls[i].row && element.j == walls[i].col );
+      child.walls(walls[i].row,walls[i].col);
+      
+    }
+    CloudService.index=1;
   }
 
 }

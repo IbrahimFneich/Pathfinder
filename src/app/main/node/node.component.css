@@ -94,6 +94,8 @@
   }
 
   .node-wall{
+    outline: 1px solid  rgb(12, 53, 71);
+
     animation-name: wallAnimation;
     animation-duration: 0.3s;
     animation-timing-function: ease-out;
