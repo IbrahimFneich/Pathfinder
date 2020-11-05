@@ -10,7 +10,7 @@ import { INode } from 'src/app/services/INode';
 export class NodeComponent implements OnInit ,OnChanges{
 
   nodeClass:string='node';
-  TIME:number=1;
+  TIME:number=0.5;
   matrix:INode[][];
 
   @Input() i:number;
@@ -36,8 +36,6 @@ export class NodeComponent implements OnInit ,OnChanges{
     //console.log(this.changed);
 
     
-
-
     
     
     
@@ -109,9 +107,20 @@ export class NodeComponent implements OnInit ,OnChanges{
     var isStartOrFinish = (this.matrix[row][col].isStart || this.matrix[row][col].isFinish);
 
     if(this.i == row && this.j == col && this.matrix[this.i][this.j].isWall && !isStartOrFinish ){
-      setTimeout(() => {
+      //setTimeout(() => {
         this.nodeClass="node";
-      }, 0.5 * CloudService.index++);
+      //}, 0.5 * CloudService.index++);
+    }
+
+  }
+
+  clearVisited(row:number,col:number){
+    var isStartOrFinish = (this.matrix[row][col].isStart || this.matrix[row][col].isFinish);
+    var isVisitedAndNotWall = this.matrix[this.i][this.j].isVisited && !this.matrix[this.i][this.j].isWall;
+    if(this.i == row && this.j == col && isVisitedAndNotWall && !isStartOrFinish ){
+      //setTimeout(() => {
+        this.nodeClass="node";
+      //}, 0.5 * CloudService.index++);
     }
 
   }
@@ -128,9 +137,10 @@ export class NodeComponent implements OnInit ,OnChanges{
     var isStartOrFinish = (this.matrix[this.i][this.j].isStart || this.matrix[this.i][this.j].isFinish);
     var isWall = this.matrix[this.i][this.j].isWall;
 
-    CloudService.clicked=true;
     
-    if(!isStartOrFinish){
+    
+    if(!isStartOrFinish && !CloudService.isRunning){
+      CloudService.clicked=true;
         if(isWall){
           this.matrix[this.i][this.j].isWall=false;
           this.cloudService.updateMatrix(this.matrix);
@@ -188,7 +198,7 @@ export class NodeComponent implements OnInit ,OnChanges{
       console.log("up");
       var isStartOrFinish = (this.matrix[this.i][this.j].isStart || this.matrix[this.i][this.j].isFinish);
       
-      if(!isStartOrFinish){
+      if(!isStartOrFinish && !CloudService.isRunning){
         this.matrix[this.i][this.j].isWall=true;
         this.cloudService.updateMatrix(this.matrix);
         this.nodeClass="node node-wall";

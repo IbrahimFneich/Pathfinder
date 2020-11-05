@@ -4,6 +4,7 @@ import { basicRandom } from '../services/basicRandom';
 import { CloudService } from '../services/cloud.service'
 import { dijkstra, getNodesInShortestPathOrder } from '../services/dijkstra';
 import { INode } from '../services/INode';
+import { resetMatrix } from '../services/resetMatrix';
 import { wallsRandom } from '../services/wallsRandom';
 import { NodeComponent } from './node/node.component';
 @Component({
@@ -32,20 +33,33 @@ export class MainComponent implements OnInit {
   startNode:INode ;
   finishNode:INode;
 
+  isRunning:boolean=false;
+
   Dijkstra(){
-    document.getElementById("dijkstra").setAttribute('disabled','disabled');
-    document.getElementById("basicRandom").setAttribute('disabled','disabled');
-    document.getElementById("reset").setAttribute('disabled','disabled');
-    document.getElementById("clearWalls").setAttribute('disabled','disabled');
+    this.isRunning=true;
+    CloudService.isRunning=true;
+    if(CloudService.isPathFound){
+      this.clearVisited();
+
+    }
+    console.log("HERE -1");
+    //document.getElementById("dijkstra").setAttribute('disabled','disabled');
+    //document.getElementById("basicRandom").setAttribute('disabled','disabled');
+    //document.getElementById("reset").setAttribute('disabled','disabled');
+    //document.getElementById("clearWalls").setAttribute('disabled','disabled');
 
 
     
     
-
+    console.log("HERE 0");
     this.startNode= this.matrix[CloudService.startRow][CloudService.startCol];
     this.finishNode = this.matrix[CloudService.finishRow][CloudService.finishCol];
-    var dij= dijkstra(this.matrix,this.startNode,this.finishNode);
+    var dij:INode[]= dijkstra(this.matrix,this.startNode,this.finishNode);
 
+    
+    
+    
+    console.log("HERE 1");
 
     //console.log("DIJ : "+dij);
     
@@ -55,34 +69,45 @@ export class MainComponent implements OnInit {
       //console.log("HERE");
       
     }
-
+    console.log("HERE 2");
     for (let i = 0; i < dij.length; i++) {
       this.matrix[dij[i].row][dij[i].col].isVisited=true;
-      this.cloudService.updateMatrix(this.matrix);
     }
 
+    console.log("HERE 3");
     var path = getNodesInShortestPathOrder(this.finishNode);
+
+    this.cloudService.updateMatrix(this.matrix);
+
+
     //console.log(path);
     this.animatePath=true
-
+    console.log("HERE 4");
     //show visited
     for (let i = 0; i < dij.length; i++) {
       var child = this.children.find((element,index)=>element.i==dij[i].row && element.j == dij[i].col );
       child.child(dij[i].row,dij[i].col);
     }
-
+    console.log("HERE 5");
     //show path
     for (let i = 0; i < path.length; i++) {
       var child = this.children.find((element,index)=>element.i==path[i].row && element.j == path[i].col );
       child.path(path[i].row,path[i].col);
       
     }
+    console.log("HERE 6");
 
+    
     setTimeout(() => {
-      document.getElementById("basicRandom").removeAttribute('disabled');
-      document.getElementById("reset").removeAttribute('disabled');
-      document.getElementById("clearWalls").removeAttribute('disabled');
+      //document.getElementById("basicRandom").removeAttribute('disabled');
+      //document.getElementById("reset").removeAttribute('disabled');
+      //document.getElementById("clearWalls").removeAttribute('disabled');
+      this.isRunning=false;
+      CloudService.isRunning=false;
     },1.1 * CloudService.index);
+    console.log("HERE 7");
+
+    CloudService.isPathFound=true;
 
   }
 
@@ -105,6 +130,27 @@ export class MainComponent implements OnInit {
         var child = this.children.find((element,index)=>element.i==row && element.j == col );
         child.clearWalls(row,col);
         this.matrix[row][col].isWall=false;
+        this.matrix[row][col].previousNode=null;
+        this.matrix[row][col].distance=Number.MAX_VALUE;
+      }
+    }
+    this.cloudService.updateMatrix(this.matrix);
+    CloudService.index=1;
+  }
+
+  clearVisited(){
+    
+
+    for (let row = 0; row < 25; row++) {
+      for (let col = 0; col < 70; col++) {
+        var isStartOrFinish = (this.matrix[row][col].isStart || this.matrix[row][col].isFinish);
+        if (this.matrix[row][col].isVisited && !isStartOrFinish) {
+          var child = this.children.find((element,index)=>element.i==row && element.j == col );
+          child.clearVisited(row,col);
+          this.matrix[row][col].isVisited=false;
+          this.matrix[row][col].isPath=false;
+          this.matrix[row][col].distance=Number.MAX_VALUE;
+        }
       }
     }
     this.cloudService.updateMatrix(this.matrix);
@@ -121,6 +167,7 @@ export class MainComponent implements OnInit {
     this.startNode= this.matrix[CloudService.startRow][CloudService.startCol];
     this.finishNode = this.matrix[CloudService.finishRow][CloudService.finishCol];
     
+    this.clearWalls();
     //if(!this.isDijkstraDone){
     //  var dij = dij= dijkstra(this.matrix,this.startNode,this.finishNode);
     //  this.isDijkstraDone=true;
@@ -164,13 +211,15 @@ export class MainComponent implements OnInit {
     this.finishNode = this.matrix[CloudService.finishRow][CloudService.finishCol];
 
 
+    this.clearVisited();
+    this.clearWalls();
     var walls = wallsRandom(this.matrix,this.startNode,this.finishNode);
 
     for (let index = 0; index < walls.length; index++) {
       this.matrix[walls[index].row][walls[index].col]=walls[index];
-      
+      this.cloudService.updateMatrix(this.matrix);
     }
-    this.cloudService.updateMatrix(this.matrix);
+    //this.cloudService.updateMatrix(this.matrix);
     
 
     //visualize walls

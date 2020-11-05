@@ -14,7 +14,8 @@ export function basicRandom(grid, startNode, finishNode){
             let randomCol = Math.floor(Math.random() * 70) + 0;
 
 
-            let node = grid[randomRow][randomCol];
+            let node:INode = grid[randomRow][randomCol];
+                grid[randomRow][randomCol].isWall=true;
                 node.isWall=true;
                 randomWalls.push(node);
                 //grid[randomRow][randomCol].isWall=true;
@@ -23,9 +24,8 @@ export function basicRandom(grid, startNode, finishNode){
                 //console.log("("+randomRow+","+randomCol+")="+isInPath);
         }
         index=0;
-    let dij = dijkstra(grid,startNode,finishNode);
-    let path = getNodesInShortestPathOrder(finishNode);
-    var isThereIsAPath = path[path.length-1].isFinish;
+        let dij = dijkstra(grid,startNode,finishNode);
+        let path = getNodesInShortestPathOrder(finishNode);
         
         
             return randomWalls;

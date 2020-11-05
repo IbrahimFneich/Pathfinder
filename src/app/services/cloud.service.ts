@@ -16,6 +16,9 @@ export class CloudService {
   static isDone:boolean=false;
   static sameNode:INode;
   static startDragged:boolean=false;
+  static isPathFound:boolean=false;
+
+  static isRunning:boolean=false;
 
   static startRow:number=13;
   static startCol:number=15;
@@ -29,7 +32,6 @@ export class CloudService {
 
   updateMatrix(matrix:INode[][]){
     this.matrixSource.next(matrix);
-    
   }
 
   InitializeMatrix():INode[][]{

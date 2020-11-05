@@ -6,7 +6,7 @@
     <span>Pathfinder</span>
 
     <span class="example-spacer"></span>
-    <button mat-button color="primary" (click)="Dijkstra()" id="dijkstra" >Dijkstra</button>
+    <button mat-button [(disabled)]="isRunning" color="primary" (click)="Dijkstra()" id="dijkstra" >Dijkstra</button>
     <button mat-button color="primary" (click)="basicRandom()" id="basicRandom" >basicRandom</button>
     <button mat-button color="primary" (click)="wallsRandom()" id="wallsRandom" >wallsRandom</button>
 
@@ -35,7 +35,6 @@
             <app-node [i]="i" [j]="j" [animatePath]="animatePath"></app-node>
         </div>
     </div>
-
 </div>
 
 

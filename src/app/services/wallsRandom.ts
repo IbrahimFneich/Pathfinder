@@ -1,8 +1,10 @@
 import { INode } from './INode';
+import { resetMatrix } from './resetMatrix';
 
 
 export function wallsRandom(grid, startNode, finishNode){
     
+
     const walls:INode[]=[];
     //top row
     for (let index = 0; index < 70; index++) {
