@@ -1,10 +1,10 @@
 import { Component, OnInit,QueryList,ViewChild,ViewChildren} from '@angular/core';
-import { element } from 'protractor';
+//import { element } from 'protractor';
 import { basicRandom } from '../services/basicRandom';
 import { CloudService } from '../services/cloud.service'
 import { dijkstra, getNodesInShortestPathOrder } from '../services/dijkstra';
 import { INode } from '../services/INode';
-import { resetMatrix } from '../services/resetMatrix';
+//import { resetMatrix } from '../services/resetMatrix';
 import { wallsRandom } from '../services/wallsRandom';
 import { NodeComponent } from './node/node.component';
 @Component({
@@ -129,7 +129,9 @@ export class MainComponent implements OnInit {
         
         var child = this.children.find((element,index)=>element.i==row && element.j == col );
         child.clearWalls(row,col);
+        
         this.matrix[row][col].isWall=false;
+        this.matrix[row][col].isPath=false;
         this.matrix[row][col].previousNode=null;
         this.matrix[row][col].distance=Number.MAX_VALUE;
       }
@@ -147,6 +149,7 @@ export class MainComponent implements OnInit {
         if (this.matrix[row][col].isVisited && !isStartOrFinish) {
           var child = this.children.find((element,index)=>element.i==row && element.j == col );
           child.clearVisited(row,col);
+          child.clearPath(row,col);
           this.matrix[row][col].isVisited=false;
           this.matrix[row][col].isPath=false;
           this.matrix[row][col].distance=Number.MAX_VALUE;

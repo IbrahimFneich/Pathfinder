@@ -125,6 +125,17 @@ export class NodeComponent implements OnInit ,OnChanges{
 
   }
 
+  clearPath(row:number,col:number){
+    var isStartOrFinish = (this.matrix[row][col].isStart || this.matrix[row][col].isFinish);
+    var isPath = this.matrix[this.i][this.j].isPath ;
+    if(this.i == row && this.j == col && isPath && !isStartOrFinish ){
+      //setTimeout(() => {
+        this.nodeClass="node";
+      //}, 0.5 * CloudService.index++);
+    }
+
+  }
+
   isDown:boolean=false;
 
 
@@ -143,11 +154,13 @@ export class NodeComponent implements OnInit ,OnChanges{
       CloudService.clicked=true;
         if(isWall){
           this.matrix[this.i][this.j].isWall=false;
+          this.matrix[this.i][this.j].isPath=false;
           this.cloudService.updateMatrix(this.matrix);
           this.nodeClass="node ";
         }
         else{
           this.matrix[this.i][this.j].isWall=true;
+          this.matrix[this.i][this.j].isPath=false;
           this.cloudService.updateMatrix(this.matrix);
           this.nodeClass="node node-wall";
         }
@@ -179,11 +192,13 @@ export class NodeComponent implements OnInit ,OnChanges{
         if (!sameNode) {
           if(isWall){
             this.matrix[this.i][this.j].isWall=false;
+            this.matrix[this.i][this.j].isPath=false;
             this.cloudService.updateMatrix(this.matrix);
             this.nodeClass="node ";
           }
           else{
             this.matrix[this.i][this.j].isWall=true;
+            this.matrix[this.i][this.j].isPath=false;
             this.cloudService.updateMatrix(this.matrix);
             this.nodeClass="node node-wall";
           }
@@ -200,6 +215,7 @@ export class NodeComponent implements OnInit ,OnChanges{
       
       if(!isStartOrFinish && !CloudService.isRunning){
         this.matrix[this.i][this.j].isWall=true;
+        this.matrix[this.i][this.j].isPath=false;
         this.cloudService.updateMatrix(this.matrix);
         this.nodeClass="node node-wall";
       }
