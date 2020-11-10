@@ -24,8 +24,8 @@ export function basicRandom(grid, startNode, finishNode){
                 //console.log("("+randomRow+","+randomCol+")="+isInPath);
         }
         index=0;
-        let dij = dijkstra(grid,startNode,finishNode);
-        let path = getNodesInShortestPathOrder(finishNode);
+        // let dij = dijkstra(grid,startNode,finishNode);
+        // let path = getNodesInShortestPathOrder(finishNode);
         
         
             return randomWalls;

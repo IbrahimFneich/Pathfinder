@@ -19,6 +19,7 @@
     
     /*border: 1px solid rgb(175, 216, 248);*/
     background-image:url(triangletwo-right.svg);
+    
     /*background-color: rgb(255, 254, 106);*/
     background-position: center;
     background-repeat: no-repeat;
@@ -37,7 +38,7 @@
     animation-iteration-count: 1;
     animation-fill-mode: forwards;
     animation-play-state: running;
-    background-color: blue;
+    background-color: red;
   }
 
 
@@ -45,17 +46,23 @@
   @keyframes visitedAnimation {
     0% {
       transform: scale(0.3);
-      background-color: rgba(0, 0, 66, 0.75);
+      /* background-color: rgba(0, 0, 66, 0.75); */
+      background-color: rgb(255, 230, 0);
       border-radius: 100%;
     }
   
     50% {
-      background-color: rgba(17, 104, 217, 0.75);
+      /* background-color: rgba(118, 133, 153, 0.75)); */
+      background-color: rgba(255, 145, 0, 0.808);
+
     }
   
     75% {
       transform: scale(1.2);
-      background-color: rgba(0, 217, 159, 0.75);
+      /* background-color: rgba(0, 217, 159, 0.75); */
+      background-color: rgba(0, 255, 128, 0.75);
+
+
     }
   
     100% {

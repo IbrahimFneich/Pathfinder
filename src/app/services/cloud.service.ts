@@ -37,12 +37,12 @@ export class CloudService {
   InitializeMatrix():INode[][]{
 
           
-    const matrix = [];
+    var matrix = [];
     for (let row = 0; row < 25; row++) {
-      const currentRow = [];
+      var currentRow = [];
       for (let col = 0; col < 70; col++) {
         if(row==13 && col == 15){
-          const startNode:INode={
+          var startNode:INode={
             row:CloudService.startRow,
             col:CloudService.startCol,
             distance:0,
@@ -58,7 +58,7 @@ export class CloudService {
         }
         else if(row==13 && col == 55){
 
-          const finishNode:INode={
+          var finishNode:INode={
             row:CloudService.finishRow,
             col:CloudService.finishCol,
             distance:Number.MAX_VALUE,
@@ -72,7 +72,7 @@ export class CloudService {
           currentRow.push(finishNode);
         }
         else{
-        const node:INode={
+        var node:INode={
           row:row,
           col:col,
           distance:Number.MAX_VALUE,
