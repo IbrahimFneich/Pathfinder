@@ -296,7 +296,7 @@ export class MainComponent implements OnInit {
   selector: 'snack-bar-component-example-snack',
   template: `
     <span class="example-pizza-party">
-        <center>🛑🛑Stuck!🛑🛑</center>
+        🛑🛑Stuck!🛑🛑
     </span>`,
   styles: [`
     .example-pizza-party {
