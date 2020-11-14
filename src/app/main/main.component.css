@@ -1,14 +1,23 @@
+
+
 .grid {
-    margin: 50px 0 0;
-    margin-left: 10px;
+  width: 85rem;
+  height: 20rem;
+    margin: auto;
+    justify-content: center;
     display: grid;
     border-collapse: collapse;
   }
 
 .row{
+
   display: grid;
   float: left;
 }
 .example-spacer {
   flex: 1 1 auto;
+}
+
+.toolbar{
+  width: auto;
 }
