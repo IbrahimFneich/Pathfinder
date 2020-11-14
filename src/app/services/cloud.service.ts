@@ -16,6 +16,7 @@ export class CloudService {
   static isDone:boolean=false;
   static sameNode:INode;
   static startDragged:boolean=false;
+  static finishDragged:boolean=false;
   static isPathFound:boolean=false;
 
   static isRunning:boolean=false;

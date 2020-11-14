@@ -130,7 +130,7 @@ export class NodeComponent implements OnInit ,OnChanges{
 
 
   //---------------------------------------------------------------------------------------
-  // MOUSE EVENT HANDLERS
+  // MOUSE EVENTS
 
   mouseDown(){
     console.log("down");
@@ -160,8 +160,37 @@ export class NodeComponent implements OnInit ,OnChanges{
         CloudService.sameNode=this.matrix[this.i][this.j];
 
       }
+    //if start or finish is dragged
     else{
-        //CloudService.startDragged=true;
+
+        //if start is dragged
+        if(this.matrix[this.i][this.j].isStart){
+          this.nodeClass="node";
+          this.matrix[this.i][this.j].isStart=false;
+          this.matrix[this.i][this.j].distance=Number.MAX_VALUE;
+          console.log("dragging : ");
+          console.log(this.matrix[this.i][this.j]);
+        
+          
+          this.cloudService.updateMatrix(this.matrix);
+          this.cloudService.currentMatrix.subscribe((matrix: INode[][])=> this.matrix = matrix);
+          CloudService.startDragged=true;
+        }
+
+        //if finish is dragged
+        if(this.matrix[this.i][this.j].isFinish){
+          this.nodeClass="node";
+          this.matrix[this.i][this.j].isFinish=false;
+          this.matrix[this.i][this.j].distance=Number.MAX_VALUE;
+          console.log("dragging : ");
+          console.log(this.matrix[this.i][this.j]);
+        
+          
+          this.cloudService.updateMatrix(this.matrix);
+          this.cloudService.currentMatrix.subscribe((matrix: INode[][])=> this.matrix = matrix);
+          CloudService.finishDragged=true;
+        }
+
     }
 
   }
@@ -199,6 +228,7 @@ export class NodeComponent implements OnInit ,OnChanges{
         }
         
       }
+
     }
     
   }
@@ -214,16 +244,49 @@ export class NodeComponent implements OnInit ,OnChanges{
         this.cloudService.currentMatrix.subscribe((matrix: INode[][])=> this.matrix = matrix);
         this.nodeClass="node node-wall";
       }
+
+      //start is dropped
       if(CloudService.startDragged){
         console.log("HEREEEEE");
         
         CloudService.startRow=this.i;
         CloudService.startCol=this.j;
+        this.matrix[this.i][this.j].isStart=true;
+        this.matrix[this.i][this.j].isFinish=false;
+        
+        this.matrix[this.i][this.j].isWall=false;
+        this.matrix[this.i][this.j].distance=0;
         this.matrix[CloudService.startRow][CloudService.startCol].isStart=true;
         this.cloudService.updateMatrix(this.matrix);
         this.cloudService.currentMatrix.subscribe((matrix: INode[][])=> this.matrix = matrix);
         CloudService.startDragged=false;
+        this.nodeClass="node node-start"
+        console.log("Arrived : ");
+        console.log(this.matrix[this.i][this.j]);
       }
+
+      //finish is dropped
+      if(CloudService.finishDragged){
+        console.log("HEREEEEE");
+        
+        CloudService.finishRow=this.i;
+        CloudService.finishCol=this.j;
+
+        this.matrix[this.i][this.j].isFinish=true;
+        this.matrix[this.i][this.j].isStart=false;
+        this.matrix[this.i][this.j].isWall=false;
+        this.matrix[this.i][this.j].distance=Number.MAX_VALUE;
+
+        this.matrix[CloudService.startRow][CloudService.startCol].isFinish=true;
+
+        this.cloudService.updateMatrix(this.matrix);
+        this.cloudService.currentMatrix.subscribe((matrix: INode[][])=> this.matrix = matrix);
+        CloudService.finishDragged=false;
+        this.nodeClass="node node-finish"
+        console.log("Arrived : ");
+        console.log(this.matrix[this.i][this.j]);
+      }
+
       CloudService.clicked=false;
       
   }

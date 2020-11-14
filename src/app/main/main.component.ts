@@ -53,9 +53,10 @@ export class MainComponent implements OnInit {
   isRunning:boolean=false;
 
   Dijkstra(){
-
     this.isRunning=true;
     CloudService.isRunning=true;
+    this.setUpMatrix();
+
     if(CloudService.isPathFound){
       
       var deletePath = getNodesInShortestPathOrder(this.finishNode);
@@ -71,6 +72,8 @@ export class MainComponent implements OnInit {
     console.log("HERE -1");
 
 
+    console.log("IS START ??? :"+this.matrix[CloudService.startRow][CloudService.startCol].isStart);
+    
 
     
     
@@ -78,6 +81,8 @@ export class MainComponent implements OnInit {
     this.startNode= this.matrix[CloudService.startRow][CloudService.startCol];
     this.finishNode = this.matrix[CloudService.finishRow][CloudService.finishCol];
 
+    console.log("START : ("+this.startNode.row+","+this.startNode.col+")");
+    
 
     var dij:INode[]= dijkstra(this.matrix,this.startNode,this.finishNode);
 
