@@ -10,7 +10,7 @@ import { INode } from 'src/app/services/INode';
 export class NodeComponent implements OnInit ,OnChanges{
 
   nodeClass:string='node';
-  TIME:number=0.5;
+  TIME:number=1;
   matrix:INode[][];
 
   @Input() i:number;
@@ -20,7 +20,7 @@ export class NodeComponent implements OnInit ,OnChanges{
   
 
   constructor(private cloudService:CloudService) { 
-
+    
   }
 
 
@@ -166,7 +166,7 @@ export class NodeComponent implements OnInit ,OnChanges{
         this.previousNode=null;
 
         //if start is dragged
-        if(this.matrix[this.i][this.j].isStart){
+        if(this.matrix[this.i][this.j].isStart && !CloudService.isRunning){
           this.previousNode=this.matrix[this.i][this.j];
 
           this.nodeClass="node";
@@ -182,7 +182,7 @@ export class NodeComponent implements OnInit ,OnChanges{
         }
 
         //if finish is dragged
-        if(this.matrix[this.i][this.j].isFinish){
+        if(this.matrix[this.i][this.j].isFinish && !CloudService.isRunning){
           this.nodeClass="node";
           this.matrix[this.i][this.j].isFinish=false;
           this.matrix[this.i][this.j].distance=Number.MAX_VALUE;

@@ -1,5 +1,4 @@
 import { INode } from './INode';
-import { resetMatrix } from './resetMatrix';
 
 
 export function wallsRandom(grid:INode[][], startNode, finishNode){

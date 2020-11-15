@@ -1,4 +1,4 @@
-.node {
+  .node {
     width: 1.3em;
     height: 1.3em;
     outline: 1px solid rgb(175, 216, 248);
@@ -8,6 +8,7 @@
   .node-finish {
         /*border: 1px solid rgb(175, 216, 248);*/
         background-image:url(finish.svg);
+        outline: 0px solid rgb(175, 216, 248);
         /*background-color: rgb(255, 254, 106);*/
         background-position: center;
         background-repeat: no-repeat;
@@ -24,9 +25,6 @@
     background-position: center;
     background-repeat: no-repeat;
     background-size: contain;
-
-
-
   }
 
   .node-visited {

@@ -4,7 +4,6 @@ import { basicRandom } from '../services/basicRandom';
 import { CloudService } from '../services/cloud.service'
 import { dijkstra, getNodesInShortestPathOrder } from '../services/dijkstra';
 import { INode } from '../services/INode';
-import { resetMatrix } from '../services/resetMatrix';
 import { wallsRandom } from '../services/wallsRandom';
 import { NodeComponent } from './node/node.component';
 import {MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition} from '@angular/material/snack-bar';

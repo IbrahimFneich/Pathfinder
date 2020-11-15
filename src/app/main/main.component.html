@@ -1,26 +1,33 @@
 <mat-toolbar class="toolbar">
 
-    <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
-      <mat-icon>menu</mat-icon>
-    </button>
-    <span>Pathfinder</span>
+
+    <h1 (click)="reset()" >Pathfinder</h1>
 
     <span class="example-spacer"></span>
     <button mat-button [(disabled)]="isRunning" color="primary" (click)="Dijkstra()" id="dijkstra" >Dijkstra</button>
-    <button mat-button [(disabled)]="isRunning" color="primary" (click)="basicRandom()" id="basicRandom" >basicRandom</button>
-    <button mat-button [(disabled)]="isRunning" color="primary" (click)="wallsRandom()" id="wallsRandom" >wallsRandom</button>
+    <button mat-button [(disabled)]="isRunning" color="primary" (click)="basicRandom()" id="basicRandom" >Basic Maze</button>
+    <button mat-button [(disabled)]="isRunning" color="primary" (click)="wallsRandom()" id="wallsRandom" >Random Maze</button>
 
     <button mat-button color="primary" (click)="reset()" id="reset" >Reset</button>
     <!-- <button mat-button color="primary" (click)="clearWalls()" id="clearWalls" >Clear Walls</button> -->
-    <button mat-icon-button class="example-icon favorite-icon" aria-label="Example icon-button with heart icon">
-      <mat-icon>favorite</mat-icon>
-    </button>
 
-    <button mat-icon-button class="example-icon" aria-label="Example icon-button with share icon">
-      <mat-icon>share</mat-icon>
-    </button>
 
-  </mat-toolbar>
+</mat-toolbar>
+
+<mat-toolbar class="toolbar">
+
+   <span class="example-spacer"></span>
+   <span class="example-spacer2">Unvisited</span> <div class="node" ></div> <span class="example-spacer"></span>
+   <span class="example-spacer2">Start</span><div class="node node-start" ></div> <span class="example-spacer"></span>
+   <span class="example-spacer2">Finish</span><div class="node node-finish" ></div> <span class="example-spacer"></span>
+   <span class="example-spacer2">Visited</span><div class="node node-visited" ></div> <span class="example-spacer"></span>
+   <span class="example-spacer2">Path</span><div class="node node-path" ></div> <span class="example-spacer"></span>
+   <span class="example-spacer2">Wall</span><div class="node node-wall" ></div> <span class="example-spacer"></span>
+
+  
+  
+
+</mat-toolbar>
 
 
 <br>
@@ -30,7 +37,7 @@
     <div  *ngFor="let row of matrix ; index as i">
         <div class="row" *ngFor="let col of row ; index as j">
             
-            <app-node [i]="i" [j]="j" [animatePath]="animatePath"></app-node>
+            <app-node [i]="i" [j]="j" [animatePath]="animatePath" ></app-node>
         </div>
     </div>
 </div>
