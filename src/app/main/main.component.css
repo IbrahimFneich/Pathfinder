@@ -22,6 +22,10 @@
   flex: 0.2 0.2 auto;
 }
 
+.example-spacer3 {
+  flex: 0.05 0.05 auto;
+}
+
 .toolbar{
   width: auto;
 }
