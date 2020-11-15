@@ -15,8 +15,11 @@ export function basicRandom(grid, startNode, finishNode){
 
 
             let node:INode = grid[randomRow][randomCol];
+            if(!(node.isStart || node.isFinish)){
                 grid[randomRow][randomCol].isWall=true;
                 node.isWall=true;
+            }
+                
                 randomWalls.push(node);
                 //grid[randomRow][randomCol].isWall=true;
                 index++;

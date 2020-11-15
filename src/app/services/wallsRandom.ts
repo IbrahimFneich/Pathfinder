@@ -2,35 +2,43 @@ import { INode } from './INode';
 import { resetMatrix } from './resetMatrix';
 
 
-export function wallsRandom(grid, startNode, finishNode){
+export function wallsRandom(grid:INode[][], startNode, finishNode){
     
 
     const walls:INode[]=[];
     //top row
     for (let index = 0; index < 70; index++) {
         let node:INode = grid[0][index];
-        node.isWall=true;
+        if(!(node.isStart || node.isFinish)){
+            node.isWall=true;
+        }
         walls.push(node);
     }
 
     //right col
     for (let index = 0; index < 25; index++) {
         let node:INode = grid[index][69];
-        node.isWall=true;
+        if(!(node.isStart || node.isFinish)){
+            node.isWall=true;
+        }
         walls.push(node);
     }
 
     //bottom row
     for (let index = 69; index >= 0; index--) {
         let node:INode = grid[24][index];
-        node.isWall=true;
+        if(!(node.isStart || node.isFinish)){
+            node.isWall=true;
+        }
         walls.push(node);
     }
 
     //left col
     for (let index = 24; index >= 0; index--) {
         let node:INode = grid[index][0];
-        node.isWall=true;
+        if(!(node.isStart || node.isFinish)){
+            node.isWall=true;
+        }
         walls.push(node);
     }
 
@@ -42,7 +50,9 @@ export function wallsRandom(grid, startNode, finishNode){
                 let node:INode = grid[j][index];    
 
                 if(j!=window){
-                    node.isWall=true;
+                    if(!(node.isStart || node.isFinish)){
+                        node.isWall=true;
+                    }
                 }else{
                     node.isWall=false;
                 }
@@ -59,7 +69,9 @@ export function wallsRandom(grid, startNode, finishNode){
                 let node:INode = grid[j][index];    
 
                 if(j!=window){
-                    node.isWall=true;
+                    if(!(node.isStart || node.isFinish)){
+                        node.isWall=true;
+                    }
                 }else{
                     node.isWall=false;
                 }
