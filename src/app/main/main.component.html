@@ -6,7 +6,7 @@
     <span class="example-spacer"></span>
     <button mat-button [(disabled)]="isRunning" color="primary" (click)="Dijkstra()" id="dijkstra" >Dijkstra</button>
     <button mat-button [(disabled)]="isRunning" color="primary" (click)="basicRandom()" id="basicRandom" >Basic Maze</button>
-    <button mat-button [(disabled)]="isRunning" color="primary" (click)="wallsRandom()" id="wallsRandom" >Random Maze</button>
+    <button mat-button [(disabled)]="isRunning" color="primary" (click)="wallsRandom()" id="wallsRandom" >Walls Maze</button>
 
     <button mat-button color="primary" (click)="reset()" id="reset" >Reset</button>
     <!-- <button mat-button color="primary" (click)="clearWalls()" id="clearWalls" >Clear Walls</button> -->
@@ -15,6 +15,7 @@
 </mat-toolbar>
 
 <mat-toolbar class="toolbar">
+
 
    <span class="example-spacer"></span>
    <span class="example-spacer2">Unvisited</span> <div class="node" ></div> <span class="example-spacer"></span>
