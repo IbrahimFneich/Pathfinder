@@ -7,6 +7,7 @@ import { INode } from '../services/INode';
 import { wallsRandom } from '../services/wallsRandom';
 import { NodeComponent } from './node/node.component';
 import {MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition} from '@angular/material/snack-bar';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-main',
@@ -19,7 +20,8 @@ export class MainComponent implements OnInit {
   @ViewChildren(NodeComponent) children:QueryList<NodeComponent>;
 
   constructor(private cloudService:CloudService,
-    private _snackBar: MatSnackBar) { 
+    private _snackBar: MatSnackBar,
+    public dialog: MatDialog) { 
     
   }
   
@@ -35,6 +37,11 @@ export class MainComponent implements OnInit {
 
   ngOnInit(): void {
     this.setUpMatrix();
+    const dialogRef = this.dialog.open(DialogContentExampleDialog);
+
+    dialogRef.afterClosed().subscribe(result => {
+      //(`Dialog result: ${result}`);
+    });
   }
 
   setUpMatrix(){
@@ -68,19 +75,19 @@ export class MainComponent implements OnInit {
       this.cloudService.updateMatrix(this.matrix);
       this.setUpMatrix();
     }
-    console.log("HERE -1");
+    //("HERE -1");
 
 
-    console.log("IS START ??? :"+this.matrix[CloudService.startRow][CloudService.startCol].isStart);
+    //("IS START ??? :"+this.matrix[CloudService.startRow][CloudService.startCol].isStart);
     
 
     
     
-    console.log("HERE 0");
+    //("HERE 0");
     this.startNode= this.matrix[CloudService.startRow][CloudService.startCol];
     this.finishNode = this.matrix[CloudService.finishRow][CloudService.finishCol];
 
-    console.log("START : ("+this.startNode.row+","+this.startNode.col+")");
+    //("START : ("+this.startNode.row+","+this.startNode.col+")");
     
 
     var dij:INode[]= dijkstra(this.matrix,this.startNode,this.finishNode);
@@ -90,46 +97,46 @@ export class MainComponent implements OnInit {
     
     
     
-    console.log("HERE 1");
+    //("HERE 1");
 
-    //console.log("DIJ : "+dij);
+    //("DIJ : "+dij);
     
 
     if(CloudService.visitedPath==null){
       CloudService.visitedPath=dij;
-      //console.log("HERE");
+      //("HERE");
       
     }
-    console.log("HERE 2");
+    //("HERE 2");
     for (let i = 0; i < dij.length; i++) {
       this.matrix[dij[i].row][dij[i].col]=dij[i];
     }
     this.cloudService.updateMatrix(this.matrix);
     this.setUpMatrix();
 
-    console.log("HERE 3");
+    //("HERE 3");
     var path = getNodesInShortestPathOrder(this.finishNode);
 
     this.cloudService.updateMatrix(this.matrix);
     this.setUpMatrix();
 
 
-    ///////////////////////////////////////////////console.log(path);
-    this.animatePath=true
-    console.log("HERE 4");
+    ///////////////////////////////////////////////(path);
+    this.animatePath=true;
+    //("HERE 4");
     //show visited
     for (let i = 0; i < dij.length; i++) {
       var child = this.children.find((element,index)=>element.i==dij[i].row && element.j == dij[i].col );
       child.child(dij[i].row,dij[i].col);
     }
-    console.log("HERE 5");
+    //("HERE 5");
     //show path
     for (let i = 0; i < path.length; i++) {
       var child = this.children.find((element,index)=>element.i==path[i].row && element.j == path[i].col );
       child.path(path[i].row,path[i].col);
       
     }
-    console.log("HERE 6");
+    //("HERE 6");
 
     
     setTimeout(() => {
@@ -140,7 +147,7 @@ export class MainComponent implements OnInit {
         this.openSnackBar(3);
       }
     },1.1 * CloudService.index);
-    console.log("HERE 7");
+    //("HERE 7");
 
     CloudService.isPathFound=true;
 
@@ -203,7 +210,7 @@ export class MainComponent implements OnInit {
     this.cloudService.updateMatrix(this.matrix);
     
     CloudService.index=1;
-    console.log("CLEAR VISITED KHOLSIT");
+    //("CLEAR VISITED KHOLSIT");
     
   }
 
@@ -291,6 +298,14 @@ export class MainComponent implements OnInit {
     CloudService.index=1;
   }
 
+  openDialog() {
+    const dialogRef = this.dialog.open(DialogContentExampleDialog);
+
+    dialogRef.afterClosed().subscribe(result => {
+      //(`Dialog result: ${result}`);
+    });
+  }
+
 }
 
 
@@ -309,3 +324,11 @@ export class MainComponent implements OnInit {
   `],
 })
 export class PizzaPartyComponent {}
+
+
+//Dialog
+@Component({
+  selector: 'dialog-content-example-dialog',
+  templateUrl: 'dialog-content-example-dialog.html',
+})
+export class DialogContentExampleDialog {}

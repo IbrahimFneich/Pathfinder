@@ -2,11 +2,19 @@
 
     <span class="example-spacer3"></span>
     <h1 (click)="reset()" >Pathfinder</h1>
-
+    
+    <span class="example-spacer3"></span>
+    <div class="mx-auto">
+        <a style="color: black;" href="https://github.com/IbrahimFneich/Pathfinder"><i  class="fa fa-github fa-lg"></i>‎‎‏‏‎</a>‏‏‎ ‎
+        <a style="color: #2867B2;" href="https://www.linkedin.com/in/ibrahim-fneich/"><i  class="fa fa-linkedin-square fa-lg"></i></a>‏‏‎
+    </div>
+    
     <span class="example-spacer"></span>
     <button mat-button [(disabled)]="isRunning" color="primary" (click)="Dijkstra()" id="dijkstra" >Dijkstra</button>
     <button mat-button [(disabled)]="isRunning" color="primary" (click)="basicRandom()" id="basicRandom" >Basic Maze</button>
     <button mat-button [(disabled)]="isRunning" color="primary" (click)="wallsRandom()" id="wallsRandom" >Walls Maze</button>
+    <button mat-button [(disabled)]="isRunning" color="primary" (click)="openDialog()" id="openDialog" >Help</button>
+
 
     <button mat-button color="primary" (click)="reset()" id="reset" >Reset</button>
     <!-- <button mat-button color="primary" (click)="clearWalls()" id="clearWalls" >Clear Walls</button> -->

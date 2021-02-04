@@ -33,7 +33,7 @@ export class NodeComponent implements OnInit ,OnChanges{
     if(this.matrix[this.i][this.j].isFinish){
       this.nodeClass="node node-finish";
     }
-    //console.log(this.changed);
+    //(this.changed);
 
     
     
@@ -51,8 +51,8 @@ export class NodeComponent implements OnInit ,OnChanges{
   onClick(){
 
 
-      //console.log('('+this.i+','+this.j+')');
-      console.log(this.matrix[this.i][this.j]);
+      //('('+this.i+','+this.j+')');
+      //(this.matrix[this.i][this.j]);
       
 
 
@@ -62,7 +62,7 @@ export class NodeComponent implements OnInit ,OnChanges{
   child(row:number,col:number){
     var isStartOrFinish = (this.matrix[row][col].isStart || this.matrix[row][col].isFinish);
     if(this.i == row && this.j == col && !isStartOrFinish){
-      //console.log(row+','+col);
+      //(row+','+col);
       setTimeout(() => {
         this.nodeClass="node node-visited";
       }, this.TIME * CloudService.index++);
@@ -83,7 +83,7 @@ export class NodeComponent implements OnInit ,OnChanges{
     if(this.matrix[row][col].isFinish){
       setTimeout(() => {
         CloudService.isDone=true;
-        console.log("GERER");
+        //("GERER");
         
       }, this.TIME * CloudService.index++);
       
@@ -133,7 +133,7 @@ export class NodeComponent implements OnInit ,OnChanges{
   // MOUSE EVENTS
 
   mouseDown(){
-    console.log("down");
+    //("down");
     
     var isStartOrFinish = (this.matrix[this.i][this.j].isStart || this.matrix[this.i][this.j].isFinish);
     var isWall = this.matrix[this.i][this.j].isWall;
@@ -172,8 +172,8 @@ export class NodeComponent implements OnInit ,OnChanges{
           this.nodeClass="node";
           this.matrix[this.i][this.j].isStart=false;
           this.matrix[this.i][this.j].distance=Number.MAX_VALUE;
-          console.log("dragging : ");
-          console.log(this.matrix[this.i][this.j]);
+          //("dragging : ");
+          (this.matrix[this.i][this.j]);
         
           
           this.cloudService.updateMatrix(this.matrix);
@@ -188,8 +188,8 @@ export class NodeComponent implements OnInit ,OnChanges{
           this.matrix[this.i][this.j].distance=Number.MAX_VALUE;
           this.matrix[this.i][this.j].isVisited=false;
 
-          console.log("dragging : ");
-          console.log(this.matrix[this.i][this.j]);
+          //("dragging : ");
+          (this.matrix[this.i][this.j]);
         
           
           this.cloudService.updateMatrix(this.matrix);
@@ -204,7 +204,7 @@ export class NodeComponent implements OnInit ,OnChanges{
   previousNode:INode;
 
   mouseOver(){
-    console.log("over : "+CloudService.clicked);
+    //("over : "+CloudService.clicked);
     var isStartOrFinish = (this.matrix[this.i][this.j].isStart || this.matrix[this.i][this.j].isFinish);
     var isWall = this.matrix[this.i][this.j].isWall;
 
@@ -300,7 +300,7 @@ export class NodeComponent implements OnInit ,OnChanges{
   }
 
   mouseUp(){
-      console.log("up");
+      //("up");
       var isStartOrFinish = (this.matrix[this.i][this.j].isStart || this.matrix[this.i][this.j].isFinish);
       
       if(!isStartOrFinish && !CloudService.isRunning){
@@ -314,7 +314,7 @@ export class NodeComponent implements OnInit ,OnChanges{
       //start is dropped
       if(CloudService.startDragged){
 
-        console.log("HEREEEEE");
+        //("HEREEEEE");
         
         CloudService.startRow=this.i;
         CloudService.startCol=this.j;
@@ -327,14 +327,14 @@ export class NodeComponent implements OnInit ,OnChanges{
         this.cloudService.updateMatrix(this.matrix);
         this.cloudService.currentMatrix.subscribe((matrix: INode[][])=> this.matrix = matrix);
         CloudService.startDragged=false;
-        this.nodeClass="node node-start"
-        console.log("Arrived : ");
-        console.log(this.matrix[this.i][this.j]);
+        this.nodeClass="node node-start";
+        //("Arrived : ");
+        //(this.matrix[this.i][this.j]);
       }
 
       //finish is dropped
       if(CloudService.finishDragged){
-        console.log("HEREEEEE");
+        //("HEREEEEE");
         
         CloudService.finishRow=this.i;
         CloudService.finishCol=this.j;
@@ -350,9 +350,9 @@ export class NodeComponent implements OnInit ,OnChanges{
         this.cloudService.updateMatrix(this.matrix);
         this.cloudService.currentMatrix.subscribe((matrix: INode[][])=> this.matrix = matrix);
         CloudService.finishDragged=false;
-        this.nodeClass="node node-finish"
-        console.log("Arrived : ");
-        console.log(this.matrix[this.i][this.j]);
+        this.nodeClass="node node-finish";
+        //("Arrived : ");
+        //(this.matrix[this.i][this.j]);
       }
 
       CloudService.clicked=false;

@@ -65,7 +65,7 @@ export function getNodesInShortestPathOrder(finishNode) {
   let currentNode = finishNode;
   while (currentNode !== null ) {
     currentNode.isPath = true;
-    console.log(currentNode);
+    //console.log(currentNode);
     nodesInShortestPathOrder.unshift(currentNode);
     currentNode = currentNode.previousNode;
   }
