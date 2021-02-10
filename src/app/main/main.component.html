@@ -10,6 +10,7 @@
     </div>
     
     <span class="example-spacer"></span>
+    <button mat-button [(disabled)]="isRunning" color="primary" (click)="DFS()" id="DFS" >DFS</button>
     <button mat-button [(disabled)]="isRunning" color="primary" (click)="Dijkstra()" id="dijkstra" >Dijkstra</button>
     <button mat-button [(disabled)]="isRunning" color="primary" (click)="basicRandom()" id="basicRandom" >Basic Maze</button>
     <button mat-button [(disabled)]="isRunning" color="primary" (click)="wallsRandom()" id="wallsRandom" >Walls Maze</button>

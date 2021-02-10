@@ -8,6 +8,7 @@ import { wallsRandom } from '../services/wallsRandom';
 import { NodeComponent } from './node/node.component';
 import {MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition} from '@angular/material/snack-bar';
 import { MatDialog } from '@angular/material/dialog';
+import { DFS } from '../services/DFS';
 
 @Component({
   selector: 'app-main',
@@ -57,6 +58,62 @@ export class MainComponent implements OnInit {
   finishNode:INode;
 
   isRunning:boolean=false;
+
+
+  DFS(){
+    console.log('hi');
+    this.isRunning=true;
+    CloudService.isRunning=true;
+    this.clearVisited();
+    this.cloudService.updateMatrix(this.matrix);
+    this.setUpMatrix();
+
+
+    this.startNode= this.matrix[CloudService.startRow][CloudService.startCol];
+    this.finishNode = this.matrix[CloudService.finishRow][CloudService.finishCol];
+
+    var path = DFS(this.matrix,this.startNode,this.finishNode);
+    console.log(path);
+    
+
+    //------------------------------------
+
+
+    this.animatePath=true;
+    //("HERE 4");
+    //show visited
+    for (let i = 0; i < path.length; i++) {
+      var child = this.children.find((element,index)=>element.i==path[i].row && element.j == path[i].col );
+      child.child(path[i].row,path[i].col);
+    }
+    //("HERE 5");
+    //show path
+    for (let i = 0; i < path.length; i++) {
+      var child = this.children.find((element,index)=>element.i==path[i].row && element.j == path[i].col );
+      child.path(path[i].row,path[i].col);
+      
+    }
+    //("HERE 6");
+
+    
+    setTimeout(() => {
+      this.isRunning=false;
+      CloudService.isRunning=false;
+      //if stuck
+      if(!path[path.length-1].isFinish){
+        this.openSnackBar(3);
+      }
+    },1.1 * CloudService.index);
+    //("HERE 7");
+
+    CloudService.isPathFound=true;
+
+
+
+
+    //-------------------------
+  }
+
 
   Dijkstra(){
     this.isRunning=true;

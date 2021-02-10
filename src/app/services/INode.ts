@@ -7,5 +7,5 @@ export interface INode{
     distance: number;
     isVisited: boolean;
     isWall: boolean;
-    previousNode: Node;
+    previousNode: INode;
 }
